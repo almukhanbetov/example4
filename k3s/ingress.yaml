@@ -3,26 +3,27 @@ kind: Ingress
 metadata:
   name: example4
   annotations:
-    kubernetes.io/ingress.class: traefik
+    kubernetes.io/ingress.class: nginx   # 👈 не traefik
 spec:
+  ingressClassName: nginx                # 👈 продублируем правильно
   rules:
-    - host: example4.compnet.kz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: example4
-                port:
-                  number: 80
-    - host: www.example4.compnet.kz
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: example4
-                port:
-                  number: 80
+  - host: example4.compnet.kz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: example4               # 👈 имя сервиса один в один
+            port:
+              number: 80
+  - host: www.example4.compnet.kz
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: example4
+            port:
+              number: 80
