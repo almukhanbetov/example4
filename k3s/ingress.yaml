@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: example4
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+    - host: example4.compnet.kz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: example4
+                port:
+                  number: 80
+    - host: www.example4.compnet.kz
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: example4
+                port:
+                  number: 80
